@@ -1,9 +1,9 @@
 # Tic Tac Toe
-
+<p>
 	__|__|__
 	__|__|__
 	  |  |
-
+</p>
 Installation instructions:
 
 1. Make sure you have <a href="https://www.python.org/downloads/">Python</a> 3.x installed on your machine.
