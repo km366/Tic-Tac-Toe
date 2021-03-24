@@ -10,6 +10,8 @@ Installation instructions:
 
 2. Make sure you have the <a href="https://www.pygame.org/wiki/GettingStarted">PyGame</a> library installed.
 
+3. Run the tictac.py script.
+
 About:
 
 This is an implementation of Tic Tac Toe using the PyGame GUI.
