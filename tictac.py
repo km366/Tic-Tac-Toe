@@ -35,18 +35,20 @@ def getIndexForComputerTurn():
     node = buildTree()
     return node.getIndex()
 
-def getMaxFromList(scores):
-    max = scores[0]
-    for score in scores:
-        if max[0] < score[0]:
-            max = score
+def getMaxFromList(node):
+    children = node.getChildren()
+    max = children[0]
+    for child in children:
+        if max.getScore() < child.getScore():
+            max = child
     return max
 
-def getMinFromList(scores):
-    min = scores[0]
-    for score in scores:
-        if min[0] > score[0]:
-            min = score
+def getMinFromList(node):
+    children = node.getChildren()
+    min = children[0]
+    for child in children:
+        if min.getScore() > child.getScore():
+            min = child
     return min
 
 def getCurrentGrid():
@@ -172,7 +174,6 @@ def buildTree():
     return n
 
 def minimax(depth, turn, grid):
-    scores = []
     depth += 1
     node = Node(grid)
     for i, row in enumerate(grid):
@@ -185,26 +186,22 @@ def minimax(depth, turn, grid):
                     child = Node(copyGrid)
                     if turn == comp[1]:
                         child.setScore(10-depth)
-                        scores.append([10-depth, index])
                     else:
                         child.setScore(depth-10)
-                        scores.append([depth-10, index])
                 elif checkEndState(copyGrid):
                     child = Node(copyGrid)
                     child.setScore(0)
-                    scores.append([0, index])
                 else:
                     childTurn = 0 if turn == 1 else 1
                     child = minimax(depth, childTurn, copyGrid)
-                    scores.append([child.getScore(), index])
                 child.setIndex(index)
                 node.setChild(child)
     if turn == user[1]:
-        scoreInfo = getMinFromList(scores)
+        n = getMinFromList(node)
     else:
-        scoreInfo = getMaxFromList(scores)
-    node.setScore(scoreInfo[0])
-    node.setIndex(scoreInfo[1])
+        n = getMaxFromList(node)
+    node.setScore(n.getScore())
+    node.setIndex(n.getIndex())
     return node
 
 def renderFonts(screen, size):
