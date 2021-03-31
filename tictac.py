@@ -1,6 +1,7 @@
 import pygame
 import sys
 from Drawable import *
+from node import Node
 import random
 
 def getResetBoxes():
@@ -31,7 +32,8 @@ def getIndexForComputerTurn():
     #Play a corner postion to start
     if move == 0:
         return random.choice([0, 2, 6, 8])
-    return minimax(0,comp[1],getCurrentGrid())[1]
+    node = buildTree()
+    return node.getIndex()
 
 def getMaxFromList(scores):
     max = scores[0]
@@ -164,9 +166,15 @@ def computerTurn():
     victoryOutput(index)
     turn = not turn
 
+def buildTree():
+    grid = getCurrentGrid()
+    n = minimax(0,comp[1], grid)
+    return n
+
 def minimax(depth, turn, grid):
     scores = []
     depth += 1
+    node = Node(grid)
     for i, row in enumerate(grid):
         for j, value in enumerate(row):
             copyGrid = [x[:] for x in grid]
@@ -174,19 +182,30 @@ def minimax(depth, turn, grid):
                 copyGrid[i][j] = turn
                 index = i*3 + j
                 if checkWin(index, copyGrid):
+                    child = Node(copyGrid)
                     if turn == comp[1]:
+                        child.setScore(10-depth)
                         scores.append([10-depth, index])
                     else:
+                        child.setScore(depth-10)
                         scores.append([depth-10, index])
                 elif checkEndState(copyGrid):
+                    child = Node(copyGrid)
+                    child.setScore(0)
                     scores.append([0, index])
                 else:
                     childTurn = 0 if turn == 1 else 1
-                    s = minimax(depth, childTurn, copyGrid)[0]
-                    scores.append([s, index])
+                    child = minimax(depth, childTurn, copyGrid)
+                    scores.append([child.getScore(), index])
+                child.setIndex(index)
+                node.setChild(child)
     if turn == user[1]:
-        return getMinFromList(scores)
-    return getMaxFromList(scores)
+        scoreInfo = getMinFromList(scores)
+    else:
+        scoreInfo = getMaxFromList(scores)
+    node.setScore(scoreInfo[0])
+    node.setIndex(scoreInfo[1])
+    return node
 
 def renderFonts(screen, size):
     global computerScore
