@@ -51,6 +51,12 @@ def getMinFromList(node):
             min = child
     return min
 
+def getOneDGrid():
+    a = []
+    for i,item in enumerate(boxes):
+        a.append(item[4])
+    return a
+
 def getCurrentGrid():
     current_grid=[]
     a = []
@@ -152,6 +158,10 @@ def validateUserClick(pos):
             turn = not turn
             break
     return
+
+def normalizeGrid(grid):
+    normState = [-1,-1,-1]
+    print(grid)
 
 def computerTurn():
     global turn
