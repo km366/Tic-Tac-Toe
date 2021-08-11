@@ -27,7 +27,7 @@ class Circle(Drawable):
         self.width = 2
 
     def draw(self,screen,size):
-        pygame.draw.circle(screen,self.color,[self.x,self.y],self.radius,width=self.width)
+        pygame.draw.circle(screen,self.color,[self.x,self.y],self.radius,self.width)
 
 
 class Cross(Drawable):
@@ -38,8 +38,8 @@ class Cross(Drawable):
         self.offset=math.sqrt(math.pow(self.length,2)/8)
 
     def draw(self,screen,size):
-        pygame.draw.line(screen,self.color,[(self.x-self.offset),(self.y-self.offset)],[(self.x+self.offset),(self.y+self.offset)],width=self.width)
-        pygame.draw.line(screen,self.color,[(self.x-self.offset),(self.y+self.offset)],[(self.x+self.offset),(self.y-self.offset)],width=self.width)
+        pygame.draw.line(screen,self.color,[(self.x-self.offset),(self.y-self.offset)],[(self.x+self.offset),(self.y+self.offset)],self.width)
+        pygame.draw.line(screen,self.color,[(self.x-self.offset),(self.y+self.offset)],[(self.x+self.offset),(self.y-self.offset)],self.width)
 class Grid(Drawable):
     def __init__(self,l):
         self.color=143, 255, 144
@@ -51,7 +51,7 @@ class Grid(Drawable):
         pass
 
     def draw(self,screen,size):
-        pygame.draw.line(screen,self.color,[(size[0]/2-self.length/2),(size[1]/2-self.length/6)],[(size[0]/2+self.length/2),(size[1]/2-self.length/6)],width=self.width)
-        pygame.draw.line(screen,self.color,[(size[0]/2-self.length/2),(size[1]/2+self.length/6)],[(size[0]/2+self.length/2),(size[1]/2+self.length/6)],width=self.width)
-        pygame.draw.line(screen,self.color,[(size[0]/2-self.length/6),(size[1]/2-self.length/2)],[(size[0]/2-self.length/6),(size[1]/2+self.length/2)],width=self.width)
-        pygame.draw.line(screen,self.color,[(size[0]/2+self.length/6),(size[1]/2-self.length/2)],[(size[0]/2+self.length/6),(size[1]/2+self.length/2)],width=self.width)
+        pygame.draw.line(screen,self.color,[(size[0]/2-self.length/2),(size[1]/2-self.length/6)],[(size[0]/2+self.length/2),(size[1]/2-self.length/6)],self.width)
+        pygame.draw.line(screen,self.color,[(size[0]/2-self.length/2),(size[1]/2+self.length/6)],[(size[0]/2+self.length/2),(size[1]/2+self.length/6)],self.width)
+        pygame.draw.line(screen,self.color,[(size[0]/2-self.length/6),(size[1]/2-self.length/2)],[(size[0]/2-self.length/6),(size[1]/2+self.length/2)],self.width)
+        pygame.draw.line(screen,self.color,[(size[0]/2+self.length/6),(size[1]/2-self.length/2)],[(size[0]/2+self.length/6),(size[1]/2+self.length/2)],self.width)

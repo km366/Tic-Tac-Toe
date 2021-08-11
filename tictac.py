@@ -248,7 +248,7 @@ def renderScore(screen):
 def makeVictoryLine(win_address):
     start_pos = boxes[win_address[0]][3]
     end_pos = boxes[win_address[2]][3]
-    pygame.draw.line(screen,blue,start_pos,end_pos,width=6)
+    pygame.draw.line(screen,blue,start_pos,end_pos,6)
 
 def victoryOutput(index):
     global turn
